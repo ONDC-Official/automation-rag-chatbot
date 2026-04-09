@@ -1,0 +1,16 @@
+services:
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: automation-rag-chatbot
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - rag_network
+
+networks:
+  rag_network:
+    external: true

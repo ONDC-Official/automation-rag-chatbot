@@ -1,0 +1,333 @@
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.chat-container {
+    height: calc(100vh - 200px);
+}
+
+/* ── Avatars ─────────────────────────────────────────────────────────────── */
+.ai-avatar {
+    width: 2rem;
+    height: 2rem;
+    background: #dbeafe;
+    color: #2563eb;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.7rem;
+    user-select: none;
+}
+
+.user-avatar {
+    width: 2rem;
+    height: 2rem;
+    background: #1e293b;
+    color: #fff;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.7rem;
+    user-select: none;
+}
+
+/* ── Typing indicator dots ───────────────────────────────────────────────── */
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #94a3b8;
+    border-radius: 50%;
+    animation: tdot 1s infinite;
+}
+
+@keyframes tdot {
+
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: .5;
+    }
+
+    40% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+/* ── Thinking dropdown ───────────────────────────────────────────────────── */
+.thinking-panel {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.thinking-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+    transition: background 0.15s;
+}
+
+.thinking-header:hover {
+    background: #f1f5f9;
+}
+
+/* Animated spinner ring */
+.thinking-spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    border-top-color: #6366f1;
+    flex-shrink: 0;
+}
+
+.thinking-spinner.spinning {
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Chevron rotates when open */
+.thinking-chevron {
+    margin-left: auto;
+    color: #94a3b8;
+    font-size: 10px;
+    transition: transform 0.25s ease;
+    transform: rotate(0deg);
+}
+
+.thinking-panel.open .thinking-chevron {
+    transform: rotate(180deg);
+}
+
+/* The collapsible body */
+.thinking-body {
+    overflow: hidden;
+    height: 0;
+    border-top: 0px solid #e2e8f0;
+}
+
+.thinking-panel.open .thinking-body {
+    border-top-width: 1px;
+}
+
+/* Individual step rows */
+.thinking-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 12px;
+    font-size: 0.72rem;
+    font-family: monospace;
+    border-bottom: 1px solid #f1f5f9;
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+.thinking-step:last-child {
+    border-bottom: none;
+}
+
+.step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.step-dot.status {
+    background: #6366f1;
+}
+
+.step-dot.tool {
+    background: #f59e0b;
+}
+
+.step-dot.success {
+    background: #22c55e;
+}
+
+.step-dot.error {
+    background: #ef4444;
+}
+
+.step-label {
+    color: #334155;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-detail {
+    color: #64748b;
+    margin-left: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 320px;
+}
+
+/* Tool args pill — click to toggle */
+.step-args-toggle {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s;
+}
+
+.step-args-toggle:hover {
+    background: #cbd5e1;
+}
+
+.step-args {
+    display: none;
+    width: 100%;
+    margin-top: 6px;
+    padding: 6px 8px;
+    background: #f8fafc;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    color: #475569;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 120px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+}
+
+.thinking-step.args-open .step-args {
+    display: block;
+}
+
+/* ── Markdown content ────────────────────────────────────────────────────── */
+.markdown-content {
+    line-height: 1.7;
+}
+
+.markdown-content p {
+    margin-bottom: 0.85rem;
+}
+
+.markdown-content ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 0.85rem;
+}
+
+.markdown-content ol {
+    list-style-type: decimal;
+    margin-left: 1.5rem;
+    margin-bottom: 0.85rem;
+}
+
+.markdown-content li {
+    margin-bottom: 0.25rem;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+}
+
+.markdown-content h1 {
+    font-size: 1.2rem;
+}
+
+.markdown-content h2 {
+    font-size: 1.05rem;
+}
+
+.markdown-content h3 {
+    font-size: 0.95rem;
+}
+
+.markdown-content blockquote {
+    border-left: 3px solid #cbd5e1;
+    padding-left: 0.75rem;
+    color: #64748b;
+    margin-bottom: 0.85rem;
+}
+
+.markdown-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+}
+
+.markdown-content th,
+.markdown-content td {
+    border: 1px solid #e2e8f0;
+    padding: 0.4rem 0.7rem;
+    text-align: left;
+}
+
+.markdown-content th {
+    background: #f8fafc;
+    font-weight: 600;
+}
+
+.markdown-content pre {
+    background: #1e1e2e;
+    padding: 1rem;
+    border-radius: 0.6rem;
+    overflow-x: auto;
+    margin-bottom: 0.85rem;
+}
+
+.markdown-content code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85em;
+    background: #f1f5f9;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+}
+
+.markdown-content pre code {
+    background: transparent !important;
+    padding: 0 !important;
+    color: #cdd6f4;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONDC Smart Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-900">
+    <div class="max-w-5xl mx-auto h-screen flex flex-col p-4">
+
+        <header class="flex items-center justify-between mb-4 flex-shrink-0">
+            <div class="flex items-center space-x-3">
+                <div
+                    class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl select-none">
+                    O</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800">ONDC Smart Assistant</h1>
+                    <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Technical RAG Explorer</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <select id="db-selector" class="text-sm bg-white border border-slate-200 px-3 py-2 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                    <option value="all">🔍 All Databases</option>
+                    <option value="neo4j">🕸️ Neo4j (Graph)</option>
+                    <option value="milvus">📁 Milvus (Vector)</option>
+                </select>
+                <button id="new-chat"
+                    class="text-sm bg-white border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-50 transition shadow-sm">
+                    New Chat
+                </button>
+            </div>
+        </header>
+
+        <div id="chat-box" class="chat-container flex-1 overflow-y-auto space-y-6 px-2 mb-4">
+            <div class="flex items-start space-x-3">
+                <div class="ai-avatar">AI</div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 max-w-[85%]">
+                    <p class="text-slate-700">Hello! I'm your ONDC expert assistant. Ask me about API specs, validation
+                        rules, or field definitions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-shrink-0 relative">
+            <div id="typing-indicator" class="hidden absolute -top-7 left-4 flex items-center space-x-2">
+                <div class="typing-dot"></div>
+                <div class="typing-dot" style="animation-delay:.2s"></div>
+                <div class="typing-dot" style="animation-delay:.4s"></div>
+                <!-- <span class="text-xs text-slate-400 italic ml-1">Agent is thinking…</span> -->
+            </div>
+
+            <div class="flex items-center space-x-2 bg-white p-2 rounded-2xl shadow-lg border border-slate-200">
+                <input type="text" id="user-input" placeholder="Type your ONDC query…"
+                    class="flex-1 p-3 bg-transparent focus:outline-none text-slate-700 placeholder-slate-400">
+
+                <button id="stop-btn" class="hidden bg-red-100 text-red-600 p-3 rounded-xl hover:bg-red-200 transition"
+                    title="Stop generating">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                    </svg>
+                </button>
+
+                <button id="send-btn"
+                    class="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition flex items-center justify-center"
+                    title="Send">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m22 2-7 20-4-9-9-4Z" />
+                        <path d="M22 2 11 13" />
+                    </svg>
+                </button>
+            </div>
+
+            <p class="text-center text-[10px] text-slate-400 mt-2">
+                Experimental · Knowledge grounded in ONDC specs
+            </p>
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>
