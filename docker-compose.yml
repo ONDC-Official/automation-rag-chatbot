@@ -4,6 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: automation-rag-chatbot
+    # environment:
+    #   - MCP_SERVER_URL=http://automation-rag-mcp:8004/sse
+    #   - OLLAMA_BASE_URL=http://ollama:11434
     env_file:
       - .env
     ports:

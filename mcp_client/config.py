@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # ONDC domain info (for system prompts)
     default_domain: str = "ONDC:FIS12"
-    default_api_version: str = "2.0.2"
+    default_api_version: str = "2.3.0"
 
     # MCP Server
     mcp_server_url: str = "http://mcp-server:8004/sse"

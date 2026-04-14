@@ -7,8 +7,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from mcp_client.agent import OndcAgent
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+STATIC_DIR = FRONTEND_DIR / "static"
 
 app = FastAPI(title="ONDC RAG Chatbot", version="1.1.0")
 
@@ -19,8 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-FRONTEND_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_DIR = os.path.join(FRONTEND_DIR, "static")
+
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 agent = OndcAgent()
@@ -48,7 +52,9 @@ async def search_stream(req: QueryRequest):
 
     async def event_generator():
         try:
-            async for json_line in agent.stream_query(req.query, req.session_id, query_from=req.query_from):
+            async for json_line in agent.stream_query(
+                req.query, req.session_id, query_from=req.query_from
+            ):
                 # json_line already ends with \n from the agent.
                 # SSE needs an extra \n to close the frame.
                 yield f"data: {json_line.rstrip()}\n\n"
